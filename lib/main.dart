@@ -4,6 +4,7 @@ import 'student_page.dart';
 import 'attendance_page.dart';
 import 'fees_page.dart';
 import 'report_page.dart';
+import 'settings_page.dart';
 
 void main() {
   runApp(const TutorApp());
@@ -65,6 +66,8 @@ class DashboardPage extends StatelessWidget {
                 Icons.payments, const FeesPage()),
             dashboardButton(context, 'ماہانہ رپورٹ',
                 Icons.bar_chart, const ReportPage()),
+            dashboardButton(context, 'پروفائل اور سیٹنگز',
+                Icons.settings, const SettingsPage()),
           ],
         ),
       ),
