@@ -1,9 +1,9 @@
 
- 
 import 'package:flutter/material.dart';
 import 'student_page.dart';
 import 'attendance_page.dart';
 import 'fees_page.dart';
+import 'report_page.dart';
 
 void main() {
   runApp(const TutorApp());
@@ -57,24 +57,14 @@ class DashboardPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            dashboardButton(
-              context,
-              'طلبہ کا ریکارڈ',
-              Icons.people,
-              const StudentPage(),
-            ),
-            dashboardButton(
-              context,
-              'حاضری',
-              Icons.fact_check,
-              const AttendancePage(),
-            ),
-            dashboardButton(
-              context,
-              'فیس کا ریکارڈ',
-              Icons.payments,
-              const FeesPage(),
-            ),
+            dashboardButton(context, 'طلبہ کا ریکارڈ',
+                Icons.people, const StudentPage()),
+            dashboardButton(context, 'حاضری',
+                Icons.fact_check, const AttendancePage()),
+            dashboardButton(context, 'فیس کا ریکارڈ',
+                Icons.payments, const FeesPage()),
+            dashboardButton(context, 'ماہانہ رپورٹ',
+                Icons.bar_chart, const ReportPage()),
           ],
         ),
       ),
