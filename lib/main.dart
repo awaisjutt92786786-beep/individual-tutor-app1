@@ -1,5 +1,9 @@
 
+ 
 import 'package:flutter/material.dart';
+import 'student_page.dart';
+import 'attendance_page.dart';
+import 'fees_page.dart';
 
 void main() {
   runApp(const TutorApp());
@@ -12,11 +16,10 @@ class TutorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Home Tuition',
+      title: 'Home Tuition Management',
       theme: ThemeData(
         colorSchemeSeed: Colors.teal,
         useMaterial3: true,
-        fontFamily: 'Roboto',
       ),
       home: const DashboardPage(),
     );
@@ -25,6 +28,13 @@ class TutorApp extends StatelessWidget {
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
+
+  void openPage(BuildContext context, Widget page) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => page),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,102 +46,54 @@ class DashboardPage extends StatelessWidget {
           backgroundColor: Colors.teal,
           foregroundColor: Colors.white,
         ),
-        body: Padding(
+        body: ListView(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text(
-                'السلام علیکم استاد صاحب!',
-                style: TextStyle(
-                  fontSize: 23,
-                  fontWeight: FontWeight.bold,
-                ),
+          children: [
+            const Text(
+              'السلام علیکم استاد صاحب!',
+              style: TextStyle(
+                fontSize: 23,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 20),
-              const Text(
-                'اپنی ٹیوشن کا مکمل ریکارڈ یہاں سنبھالیں۔',
-                style: TextStyle(fontSize: 16),
-              ),
-              const SizedBox(height: 20),
-              dashboardCard(
-                context,
-                'طلبہ کا ریکارڈ',
-                Icons.people,
-                () => openPage(context, 'طلبہ کا ریکارڈ'),
-              ),
-              dashboardCard(
-                context,
-                'حاضری',
-                Icons.fact_check,
-                () => openPage(context, 'حاضری'),
-              ),
-              dashboardCard(
-                context,
-                'فیس کا ریکارڈ',
-                Icons.payments,
-                () => openPage(context, 'فیس کا ریکارڈ'),
-              ),
-              dashboardCard(
-                context,
-                'ماہانہ رپورٹ',
-                Icons.bar_chart,
-                () => openPage(context, 'ماہانہ رپورٹ'),
-              ),
-              dashboardCard(
-                context,
-                'سیٹنگز',
-                Icons.settings,
-                () => openPage(context, 'سیٹنگز'),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(height: 20),
+            dashboardButton(
+              context,
+              'طلبہ کا ریکارڈ',
+              Icons.people,
+              const StudentPage(),
+            ),
+            dashboardButton(
+              context,
+              'حاضری',
+              Icons.fact_check,
+              const AttendancePage(),
+            ),
+            dashboardButton(
+              context,
+              'فیس کا ریکارڈ',
+              Icons.payments,
+              const FeesPage(),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget dashboardCard(
+  Widget dashboardButton(
     BuildContext context,
     String title,
     IconData icon,
-    VoidCallback onTap,
+    Widget page,
   ) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 10),
+      margin: const EdgeInsets.only(bottom: 12),
       child: ListTile(
         leading: Icon(icon, color: Colors.teal, size: 30),
         title: Text(title),
         trailing: const Icon(Icons.arrow_forward_ios),
-        onTap: onTap,
-      ),
-    );
-  }
-
-  void openPage(BuildContext context, String title) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => SimplePage(title: title),
-      ),
-    );
-  }
-}
-
-class SimplePage extends StatelessWidget {
-  final String title;
-
-  const SimplePage({super.key, required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Text(
-          '$title کا صفحہ',
-          style: const TextStyle(fontSize: 22),
-        ),
+        onTap: () => openPage(context, page),
       ),
     );
   }
